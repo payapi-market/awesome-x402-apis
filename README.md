@@ -330,3 +330,5 @@ SDKs, facilitators and developer tools are listed in [xpaysh/awesome-x402](https
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+- [base-oracle](https://github.com/viniciusguardaa-cpu/base-oracle) - Live x402 v2 merchant API on Base mainnet: wallet reports, gas oracle, token safety/meta, DEX feed, tx-explain, prices. On-chain verified USDC payments, no facilitator. Free /v1/sample.
