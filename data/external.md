@@ -2,4 +2,4 @@ x402 APIs that are not listed on PayAPI Market. Maintained by hand; see the [con
 
 | API | What it does | Price/call | Chains | Verified | Listing |
 | --- | ------------ | ---------- | ------ | -------- | ------- |
-| [FLINTTECH Metro Permit Leads](https://flinttech-x402.onrender.com/leads) | Live Minneapolis construction permits with job value, scope, address and contractor | $0.25 | Base | 402 challenge | [llms.txt](https://flinttech-x402.onrender.com/llms.txt) |
+| [FLINTTECH](https://flinttech-x402.f1intt3ch.workers.dev) | MN + WA contractor license, insurance and bond checks, FLINTtrust risk scores, watchlists and Minneapolis permit leads | $0.01–$3.00 | Base | 402 challenge | [llms.txt](https://flinttech-x402.f1intt3ch.workers.dev/llms.txt) |
