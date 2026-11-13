@@ -1,0 +1,11 @@
+{
+  "listings": [
+    { "name": "Liminal IP Geo", "slug": "liminal-ip-geo" },
+    { "name": "Stack Intel", "slug": "stack-intel" },
+    { "name": "Liminal Threat Reputation", "slug": "liminal-threat-reputation" },
+    { "name": "Liminal DNS Lookup", "slug": "liminal-dns-lookup" },
+    { "name": "Liminal HTTP Security Headers", "slug": "liminal-http-security-headers" },
+    { "name": "Liminal SSL Info", "slug": "liminal-ssl-info" },
+    { "name": "Liminal Email Deliverability", "slug": "liminal-email-deliverability" }
+  ]
+}

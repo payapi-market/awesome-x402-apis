@@ -9,6 +9,7 @@ import {
   formatPrice,
   trimDescription,
   isExcluded,
+  isErased,
 } from '../scripts/generate-readme.mjs';
 
 const fixture = JSON.parse(
@@ -231,6 +232,53 @@ test('intro, top picks, method and footer order', () => {
   const positions = order.map((s) => readme.indexOf(s));
   assert.deepEqual([...positions].sort((x, y) => x - y), positions);
   assert.ok(positions.every((p) => p >= 0));
+});
+
+test('erased listing slugs and names stay out, and kept listings stay', () => {
+  const erasedNames = [
+    ['Liminal IP Geo', 'liminal-ip-geo'],
+    ['Stack Intel', 'stack-intel'],
+    ['Liminal Threat Reputation', 'liminal-threat-reputation'],
+    ['Liminal DNS Lookup', 'liminal-dns-lookup'],
+    ['Liminal HTTP Security Headers', 'liminal-http-security-headers'],
+    ['Liminal SSL Info', 'liminal-ssl-info'],
+    ['Liminal Email Deliverability', 'liminal-email-deliverability'],
+  ];
+  const extras = erasedNames.map(([name, slug], i) => ({
+    ...fixture[0],
+    id: `erased-${i}`,
+    name,
+    slug,
+    marketplace_url: `https://payapi.market/api/${slug}`,
+  }));
+  extras.push(
+    {
+      ...fixture[0],
+      id: 'kept-spot',
+      name: 'Liminal Spot Prices',
+      slug: 'liminal-spot-prices',
+      marketplace_url: 'https://payapi.market/api/liminal-spot-prices',
+    },
+    {
+      ...fixture[0],
+      id: 'kept-fiat',
+      name: 'FiatDock',
+      slug: 'fiatdock',
+      marketplace_url: 'https://payapi.market/api/fiatdock',
+    },
+  );
+  for (const item of extras.slice(0, erasedNames.length)) assert.equal(isErased(item), true);
+  assert.equal(isErased(extras.at(-2)), false);
+  assert.equal(isErased(extras.at(-1)), false);
+  const readme = renderReadme([...fixture, ...extras], { date: DATE, topPicks: [] });
+  for (const [name, slug] of erasedNames) {
+    assert.ok(!readme.includes(name));
+    assert.ok(!readme.includes(slug));
+  }
+  assert.ok(readme.includes('Liminal Spot Prices'));
+  assert.ok(readme.includes('liminal-spot-prices'));
+  assert.ok(readme.includes('FiatDock'));
+  assert.ok(readme.includes('fiatdock'));
 });
 
 test('rows sharing a marketplace_url keep every row and link the name to /marketplace/<id>', () => {
