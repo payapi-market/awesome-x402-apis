@@ -14,6 +14,7 @@ const LIST_URL = 'https://payapi.market/agent/list';
 const MARKETPLACE_URL = 'https://payapi.market/marketplace';
 const LISTING_URL = 'https://payapi.market/marketplace/';
 const TOP_PICKS_PATH = path.join(ROOT, 'data', 'top-picks.json');
+const ERASED_LISTINGS_PATH = path.join(ROOT, 'data', 'erased-listings.json');
 const MAX_PAGES = 50;
 const MAX_ATTEMPTS = 3;
 const PER_PROVIDER_CAP = 5;
@@ -81,6 +82,42 @@ export function isBazaarImport(item) {
 // Directory imports and first-party listings stay out of the tables.
 export function isExcluded(item) {
   return isBazaarImport(item) || isHouse(item);
+}
+
+export function loadErasedListings(file = ERASED_LISTINGS_PATH) {
+  if (!existsSync(file)) return { slugs: new Set(), names: new Set() };
+  const parsed = JSON.parse(readFileSync(file, 'utf8'));
+  const entries = Array.isArray(parsed) ? parsed : (parsed.listings ?? []);
+  const slugs = new Set();
+  const names = new Set();
+  for (const entry of entries) {
+    if (typeof entry === 'string') {
+      slugs.add(entry.toLowerCase());
+      continue;
+    }
+    if (entry?.slug) slugs.add(String(entry.slug).toLowerCase());
+    if (entry?.name) names.add(String(entry.name).trim().toLowerCase());
+  }
+  return { slugs, names };
+}
+
+function slugFromListingUrl(url) {
+  const match = String(url ?? '').match(/\/api\/([^/?#]+)/i);
+  return match ? match[1].toLowerCase() : '';
+}
+
+// Listings removed under a data-removal request. Matched by slug or name so a
+// later catalogue regeneration cannot put the rows back.
+export function isErased(item, erased = loadErasedListings()) {
+  const slugs = new Set();
+  const fromUrl = slugFromListingUrl(item?.marketplace_url);
+  if (fromUrl) slugs.add(fromUrl);
+  if (item?.slug) slugs.add(String(item.slug).toLowerCase());
+  for (const slug of slugs) {
+    if (erased.slugs.has(slug)) return true;
+  }
+  const name = String(item?.name ?? '').trim().toLowerCase();
+  return Boolean(name) && erased.names.has(name);
 }
 
 export function applyProviderCap(items, cap = PER_PROVIDER_CAP) {
@@ -279,7 +316,8 @@ function howApisSection() {
 }
 
 export function renderReadme(listings, { date, externalMd = '', topPicks } = {}) {
-  const eligible = cleanListings(listings).filter((item) => !isExcluded(item));
+  const erased = loadErasedListings();
+  const eligible = cleanListings(listings).filter((item) => !isExcluded(item) && !isErased(item, erased));
   const { categories, byCategory, kept, more } = capPerCategory(eligible);
   const picks = topPicks ?? loadTopPicks();
 
