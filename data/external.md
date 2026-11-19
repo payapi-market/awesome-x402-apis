@@ -2,4 +2,4 @@ x402 APIs that are not listed on PayAPI Market. Maintained by hand; see the [con
 
 | API | What it does | Price/call | Chains | Verified | Listing |
 | --- | ------------ | ---------- | ------ | -------- | ------- |
-| [Counterparty Check](https://places-dentists-delegation-commit.trycloudflare.com/v1/check?address=0x0000000000000000000000000000000000000000&tier=deep) | Due diligence for a Base address: balances, nonce, risk score, report hash and attestation. | $0.05 to $5.00 USDC | Base | HTTP 402 challenge | [GET /v1/check](https://places-dentists-delegation-commit.trycloudflare.com/v1/check?address=0x0000000000000000000000000000000000000000&tier=deep) |
+| [Counterparty Check](https://app-546c577baf344139d16d.x402-hosting.com/v1/check?address=0x0000000000000000000000000000000000000000&tier=deep) | Due diligence for a Base address: balances, nonce, risk score, report hash. | Free basic; $0.15–$5.00 USDC | Base | HTTP 402 challenge | [GET /v1/check](https://app-546c577baf344139d16d.x402-hosting.com/v1/check?address=0x0000000000000000000000000000000000000000&tier=deep) |
