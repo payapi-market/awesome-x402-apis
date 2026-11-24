@@ -1,4 +1,5 @@
 x402 APIs that are not listed on PayAPI Market. Maintained by hand; see the [contributing guide](CONTRIBUTING.md) for the rules.
 
-| API | What it does | Price/call | Chains | Verified | Listing |
-| --- | ------------ | ---------- | ------ | -------- | ------- |
+| API                                                                                                | What it does                                                                     | Price/call   | Chains | Verified | Listing                                                                          |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------ | ------ | -------- | -------------------------------------------------------------------------------- |
+| [x402 Web3 Security & Rug Oracle](https://x402-web3-fin-gateway.vercel.app/api/v1/scan-token-risk) | Base and Solana token honeypot, EVM calldata, and EIP-712 signature risk checks. | 0.01 to 0.02 | Base   | 402 only | [x402scan](https://www.x402scan.com/server/51881708-6ade-4170-a4d2-4cab8db3652a) |
