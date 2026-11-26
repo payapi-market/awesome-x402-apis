@@ -2,3 +2,4 @@ x402 APIs that are not listed on PayAPI Market. Maintained by hand; see the [con
 
 | API | What it does | Price/call | Chains | Verified | Listing |
 | --- | ------------ | ---------- | ------ | -------- | ------- |
+| [FMF Black Friday Deal Monitor](https://black-friday-deal-monitor.fmf-x402.workers.dev/watch) | Watch a product for a holiday price drop and get a signed webhook | $0.01 | Base | — | [Docs](https://black-friday-deal-monitor.fmf-x402.workers.dev/docs?ref=awesome-x402-apis) |
